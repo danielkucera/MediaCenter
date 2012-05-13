@@ -155,7 +155,12 @@ public class MediaCenter extends Application {
 	}
 	
 	public String profileVar(String var){
-		return userProfile.getElementsByTagName(var).item(0).getTextContent();
+		NodeList cont = userProfile.getElementsByTagName(var);
+		if (cont.getLength() != 0){
+			return cont.item(0).getTextContent();
+		} else {
+			return "";
+		}
 	}
 	
 	public boolean str2bool(String bool){

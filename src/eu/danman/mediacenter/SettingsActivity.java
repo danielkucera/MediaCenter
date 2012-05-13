@@ -45,7 +45,8 @@ public class SettingsActivity extends PreferenceActivity  {
         	    	setVal(preference, newValue.toString());
         	    }
         	    
-        	    Toast.makeText(getApplicationContext(), preference.getKey() + ": " + newValue.toString() + " :" + res, Toast.LENGTH_SHORT).show();
+        	    //Toast.makeText(getApplicationContext(), preference.getKey() + ": " + newValue.toString() + " :" + res, Toast.LENGTH_SHORT).show();
+        	    Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
         	    
         	    return false;
         	}
@@ -54,25 +55,22 @@ public class SettingsActivity extends PreferenceActivity  {
         Preference unamePref = (Preference) findPreference("profile_title");
         unamePref.setTitle("Profile settings for user: "+global.profileVar("uname"));
         
+        //populate channels
 		XMLParser parser = new XMLParser();
 		String xmlch = global.get("do=getChannels");
         InputSource isch = new InputSource();
 		isch.setCharacterStream(new StringReader(xmlch));
 		Document xmlEPG = parser.getDomElement(isch);
 		
+		
     	NodeList idN = xmlEPG.getElementsByTagName("id");
     	NodeList nameN = xmlEPG.getElementsByTagName("name");
-	    
 	    String[] chanNames = new String[idN.getLength()];
 	    String[] chanIds = new String[idN.getLength()];
-	    
 	    for (int i=0; i < idN.getLength(); i++){
-
 	    	chanIds[i] = idN.item(i).getTextContent();
 	    	chanNames[i] = nameN.item(i).getTextContent();
-
 	    }
-        
    
         ListPreferenceMultiSelect chans = (ListPreferenceMultiSelect) findPreference("mychans");
         chans.setEntries(chanNames);
@@ -80,8 +78,8 @@ public class SettingsActivity extends PreferenceActivity  {
         chans.setOnPreferenceChangeListener(save);
         
  
-        String[] prefs = {"fullname", "invert_gravity","disable_gravity"};
-        
+        //common values
+        String[] prefs = {"fullname", "password", "email", "invert_gravity","disable_gravity"};
         for (int i = 0; i < prefs.length ; i++)
         {
 	    	final Preference thisPref = getPreferenceManager().findPreference(prefs[i]);
@@ -92,13 +90,8 @@ public class SettingsActivity extends PreferenceActivity  {
 	
 	    	thisPref.setOnPreferenceChangeListener(save);
         }
-        
-        
-        
+
 	}
-	
-    //android:entries="@array/channel_names"
-    //android:entryValues="@array/channel_ids"/>
 	
 	private void setVal(Preference mPref, String val){
 		

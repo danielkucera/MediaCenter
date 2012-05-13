@@ -161,27 +161,32 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
         
         gravity = (global.profileVar("invert_gravity").contains("true"))?-1:1;
         
+        gravity *= 1;
+
 	    startX = 999999;
     	startY = 999999;
     	ball.scrollTo(0,0);
 
         if (!global.str2bool(global.profileVar("disable_gravity"))){
         	sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);	
+        	sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_GAME);	
         }
+
     	
     	((TextView) findViewById(R.id.textWelcome)).setText("Welcome, " + global.profileVar("fullname"));
     	
 	 }
 	
 	@Override
-	 protected void onStop() {
-	    super.onStop();
-	    //sensorManager.unregisterListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+	 protected void onPause() {
+	    super.onPause();
+	    sensorManager.unregisterListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
 	    sensorManager.unregisterListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION));
+
 	 }
 	
-	float startX = 999999;
-	float startY = 999999;
+	float startX;
+	float startY;
 	
 	public void onSensorChanged(SensorEvent event) {
 		if (ball == null) return;
@@ -189,14 +194,23 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
 	    synchronized (this) {
 	        switch (event.sensor.getType()){
 	            case Sensor.TYPE_ACCELEROMETER:
-	                //outputX.setText("x:"+Float.toString(event.values[0])+"\ny:"+Float.toString(event.values[1])+"\nz:"+Float.toString(event.values[2]));
-
+//	            	Log.d("accel","x:"+Float.toString(event.values[0])+"\ny:"+Float.toString(event.values[1])+"\nz:"+Float.toString(event.values[2]));
+	            	
 	                break;
 	        case Sensor.TYPE_ORIENTATION:
-//	                outputX2.setText("x:"+Float.toString(event.values[0])+"\ny:"+Float.toString(event.values[1])+"\ny:"+Float.toString(event.values[2]));
-	                
-	                if (startX == 999999) startX = event.values[1];
-	                if (startY == 999999) startY = event.values[2];
+           
+	        	//Log.d("X",""+event.values[1]+" : "+event.values[2]);
+	        	//Log.d("start",""+startX+" : "+startY);
+	        	
+	        	
+	                if (startX == 999999) {
+	                	startX = event.values[1];
+	                	break;
+	                }
+	                if (startY == 999999) {
+	                	startY = event.values[2];
+	                	break;
+	                }
 	                
 	                int mvX = (int)(startX - event.values[1]);
 	                int mvY = (int)(startY - event.values[2]);
@@ -250,7 +264,11 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
 	 }
 	
 	 @Override
-	 public void onAccuracyChanged(Sensor sensor, int accuracy) {}  
+	 public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		    startX = 999999;
+	    	startY = 999999;
+	    	Log.d("accuracy","changed");
+	 }  
 	 
 	 Bitmap bitmapOrg;
 	 float scaleWidth;
@@ -273,7 +291,6 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
 	     
 	        maxX = display.getWidth()/2;
 	        maxY = display.getHeight()/2;
-            gravity = 1;
 
 	        
 	 }	 

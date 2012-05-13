@@ -3,7 +3,8 @@
     
     <PreferenceCategory android:key="profile_title">
     	<EditTextPreference android:title="Full name" android:key="fullname"/>
-    	<EditTextPreference android:title="Password" android:key="password" />
+    	<EditTextPreference android:title="Set new password" android:key="password" />
+    	<EditTextPreference android:title="E-Mail" android:key="email"/>
 	</PreferenceCategory>
 	
     <PreferenceCategory android:title="Menu settings">
