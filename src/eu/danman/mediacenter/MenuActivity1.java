@@ -157,16 +157,17 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
 	    
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	    //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_GAME);
-	    
-        if (!global.str2bool(global.profileVar("disable_gravity"))){
-        	sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);	
-        }
+
         
         gravity = (global.profileVar("invert_gravity").contains("true"))?-1:1;
         
 	    startX = 999999;
     	startY = 999999;
     	ball.scrollTo(0,0);
+
+        if (!global.str2bool(global.profileVar("disable_gravity"))){
+        	sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), sensorManager.SENSOR_DELAY_GAME);	
+        }
     	
     	((TextView) findViewById(R.id.textWelcome)).setText("Welcome, " + global.profileVar("fullname"));
     	
