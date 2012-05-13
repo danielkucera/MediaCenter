@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory android:key="profile_title">
+    	<EditTextPreference android:title="Full name" android:key="fullname"/>
+    	<EditTextPreference android:title="Password" android:key="password" />
+	</PreferenceCategory>
+	
+    <PreferenceCategory android:title="Menu settings">
+        <CheckBoxPreference android:key="invert_gravity" android:title="Invert menu gravity" android:summary="When checked reverse gravity on menu ball"/>
+        <CheckBoxPreference android:key="disable_gravity" android:title="Disable sensor"/>
+	</PreferenceCategory>
+    <eu.danman.mediacenter.ListPreferenceMultiSelect
+    android:key="mychans"
+    android:title="Channels" 
+    android:dialogTitle="Chosen channels"
+    android:summary="Specify which channels you want to have displayed"
+	/>
+
+</PreferenceScreen>

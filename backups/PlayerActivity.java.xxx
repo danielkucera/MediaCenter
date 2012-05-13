@@ -1,0 +1,197 @@
+package eu.danman.mediacenter;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.SensorManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.PowerManager;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.VideoView;
+import android.widget.ViewFlipper;
+
+public class PlayerActivity extends Activity implements OnTouchListener {
+	
+	@Override
+	public void onDetachedFromWindow() {
+	        try {
+	            super.onDetachedFromWindow();
+	        }
+	        catch (IllegalArgumentException e) {
+	            stopFlipping();
+	        }
+	    }
+	private void stopFlipping() {
+		// TODO Auto-generated method stub
+		
+	
+	}
+	
+	float downXValue;
+	
+	@Override
+    public boolean onTouch(View arg0, MotionEvent arg1) {
+
+        // Get the action that was done on this touch event
+        switch (arg1.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+            {
+                // store the X value when the user's finger was pressed down
+                downXValue = arg1.getX();
+                break;
+            }
+
+            case MotionEvent.ACTION_UP:
+            {
+                // Get the X value when the user released his/her finger
+                float currentX = arg1.getX();            
+
+                // going backwards: pushing stuff to the right
+                if (downXValue < currentX)
+                {
+                    // Get a reference to the ViewFlipper
+                     ViewFlipper vf = (ViewFlipper) findViewById(R.id.details);
+                     // Set the animation
+                      vf.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_left));
+                      // Flip!
+                      vf.showPrevious();
+                      playURL(--pid);
+                }
+
+                // going forwards: pushing stuff to the left
+                if (downXValue > currentX)
+                {
+                    // Get a reference to the ViewFlipper
+                    ViewFlipper vf = (ViewFlipper) findViewById(R.id.details);
+                     // Set the animation
+                     vf.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right));
+                      // Flip!
+                     vf.showNext();
+                     playURL(++pid);
+                }
+                break;
+            }
+        }
+
+        // if you return false, these actions will not be recorded
+        return true;
+    }
+	
+	int pid;
+	
+	/** Called when the activity is first created. */
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        setContentView(R.layout.player);
+        
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Tag");
+        wl.acquire();
+        
+        RelativeLayout layMain = (RelativeLayout) findViewById(R.id.RelativeLayout1);
+        layMain.setOnTouchListener((OnTouchListener) this); 
+
+ //       wl.release();
+        pid=0;
+        playURL(pid);
+//      playURL("rtsp://v4.cache6.c.youtube.com/CjYLENy73wIaLQllR9YDuQpfSRMYJCAkFEIJbXYtZ29vZ2xlSARSBXdhdGNoYPTt7ICU3qCRTgw=/0/0/0/video.3gp");
+        
+        
+
+
+    }
+	
+    public void playURL(int cpid){
+    	
+    	TextView URIshow = (TextView) findViewById(R.id.textView1);
+    	
+    	//String url = "rtsp://danman.eu:sdasd/sada/sd."+cpid;
+    	String url = "rtsp://v4.cache6.c.youtube.com/CjYLENy73wIaLQllR9YDuQpfSRMYJCAkFEIJbXYtZ29vZ2xlSARSBXdhdGNoYPTt7ICU3qCRTgw=/0/0/0/video."+cpid+"gp";
+    	
+    	URIshow.setText(url);
+        VideoView videoView = (VideoView) findViewById(R.id.videoView1);
+//        MediaController mediaController = new MediaController(this);
+ /*        
+        try {
+        	  ImageView i = (ImageView)findViewById(R.id.logoTV);
+        	  Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL("http://img.szm.sk/tv-program/logo_mini/MARKIZA.gif").getContent());
+        	  i.setImageBitmap(bitmap); 
+        	} catch (MalformedURLException e) {
+        	  e.printStackTrace();
+        	} catch (IOException e) {
+        	  e.printStackTrace();
+        	}
+  */       
+
+
+        Uri video = Uri.parse(url);
+//        videoView.setMediaController(mediaController);
+        
+        videoView.setOnPreparedListener (new MediaPlayer.OnPreparedListener() 
+        {           
+            public void onPrepared(MediaPlayer mp) 
+            {
+                RelativeLayout layoutPerc = (RelativeLayout)findViewById(R.id.layoutPerc);
+
+                // Enable Layout 1 & Disable Layout2
+         //       Layout1.setVisibility(View.VISIBLE);
+                layoutPerc.setVisibility(View.GONE);
+
+            }           
+        }); 
+        
+/*        videoView.setOnBufferingUpdateListener (new MediaPlayer.OnPreparedListener() 
+        {           
+            public void onPrepared(MediaPlayer mp) 
+            {
+                RelativeLayout layoutPerc = (RelativeLayout)findViewById(R.id.layoutPerc);
+
+                // Enable Layout 1 & Disable Layout2
+         //       Layout1.setVisibility(View.VISIBLE);
+                layoutPerc.setVisibility(View.GONE);
+
+            }           
+        }); 
+*/        
+        videoView.setVideoURI(video);
+        videoView.start();
+        
+        TextView textPerc = (TextView) findViewById(R.id.textPerc);
+        
+        textPerc.setText(videoView.getBufferPercentage()+"%");
+        
+
+
+      	
+      }
+    
+
+
+}

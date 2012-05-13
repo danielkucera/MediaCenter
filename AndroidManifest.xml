@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.danman.mediacenter"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" />
+       <uses-permission android:name="android.permission.WAKE_LOCK" />
+       <uses-permission android:name="android.permission.INTERNET" />
+       <uses-permission android:name="android.permission.CAMERA"/>
+       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MediaCenter"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name" 
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        <activity
+            android:name="IntroActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+ 	    </activity>
+        
+    	<activity android:name="LoginActivity" />
+	
+    	<activity
+            android:name=".MenuActivity1"
+            android:label="@string/app_name" >
+    	</activity>
+    	
+    	<activity
+            android:name=".MenuActivity2"
+            android:label="@string/app_name" >
+    	</activity>
+    
+	    <activity
+            android:name=".PlayerActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="landscape" >
+        </activity>
+	    <activity android:name="EPGActivity"></activity>
+	    <activity android:name="SettingsActivity"></activity>
+	    <activity android:name="PlaylistActivity"></activity>
+
+    </application>
+
+</manifest>
