@@ -1,0 +1,11 @@
+<?php
+
+//database settings
+//rename to config.php and adjust settings below
+
+$username="mediaserver";
+$password="password";
+$database="mediaserver";
+$dbserver="localhost";
+
+?>
