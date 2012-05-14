@@ -1,10 +1,8 @@
 <?php
 
-$username="mediaserver";
-$password="hesielko";
-$database="mediaserver";
+include("config.php");
 
-mysql_connect(localhost,$username,$password);
+mysql_connect($dbserver,$username,$password);
 
 @mysql_select_db($database) or die( "Unable to select database");
 
