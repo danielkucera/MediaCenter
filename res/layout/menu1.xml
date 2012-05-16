@@ -5,32 +5,58 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ImageButton
-        android:id="@+id/btnRefresh"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerInside"
-        android:src="@drawable/button_refresh" />
+        android:layout_margin="35dp" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btnRefresh"
-        android:layout_marginLeft="64dp"
-        android:text="TV" />
+        <Button
+            android:id="@+id/btnVOD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VoD" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="46dp"
-        android:text="Logout" />
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Settings" />
+
+        <Button
+            android:id="@+id/btnListTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="List TV" />
+
+        <Button
+            android:id="@+id/btnTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnListTV"
+            android:layout_alignBottom="@+id/btnListTV"
+            android:layout_alignParentRight="true"
+            android:text="TV" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="Logout" />
+
+        <Button
+            android:id="@+id/btnEPG"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="EPG" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/ball"
@@ -43,50 +69,22 @@
         android:scaleType="centerInside"
         android:src="@drawable/ball" />
 
-    <Button
-        android:id="@+id/btnEPG"
+    <ImageButton
+        android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="69dp"
-        android:text="EPG" />
-
-    <Button
-        android:id="@+id/btnSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_alignLeft="@+id/btnEPG"
-        android:text="Settings" />
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/button_refresh" />
 
     <TextView
         android:id="@+id/textWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/btnRefresh"
+        android:layout_centerHorizontal="true"
         android:layout_margin="3dp"
         android:text="Welcomemsg"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/btnVOD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnEPG"
-        android:layout_centerVertical="true"
-        android:text="VoD" />
-
-    <Button
-        android:id="@+id/btnListTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSettings"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_marginBottom="14dp"
-        android:text="List TV" />
 
 </RelativeLayout>
