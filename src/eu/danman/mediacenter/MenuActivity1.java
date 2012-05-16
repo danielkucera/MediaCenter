@@ -115,8 +115,7 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
             public void onClick(View v) {
                 // Perform action on click
             	global.get("do=logout");
-                startActivity(new Intent(getBaseContext(), LoginActivity.class));
-                finish();
+                //no need to start login activity because the get function starts it when it recieves unauthorized response
             }
         });
         
