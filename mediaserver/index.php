@@ -278,4 +278,12 @@ if ($do=="getChannels"){
 
 }
 
+if ($do=="logout"){
+
+	session_unset();
+
+	die();
+
+}
+
 

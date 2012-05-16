@@ -61,12 +61,14 @@ public class SettingsActivity extends PreferenceActivity  {
         InputSource isch = new InputSource();
 		isch.setCharacterStream(new StringReader(xmlch));
 		Document xmlEPG = parser.getDomElement(isch);
-		
-		
-    	NodeList idN = xmlEPG.getElementsByTagName("id");
+		NodeList idN = xmlEPG.getElementsByTagName("id");
     	NodeList nameN = xmlEPG.getElementsByTagName("name");
+    	
+    	
 	    String[] chanNames = new String[idN.getLength()];
 	    String[] chanIds = new String[idN.getLength()];
+	    boolean[] chanVal = new boolean[idN.getLength()];
+	    
 	    for (int i=0; i < idN.getLength(); i++){
 	    	chanIds[i] = idN.item(i).getTextContent();
 	    	chanNames[i] = nameN.item(i).getTextContent();
@@ -75,6 +77,7 @@ public class SettingsActivity extends PreferenceActivity  {
         ListPreferenceMultiSelect chans = (ListPreferenceMultiSelect) findPreference("mychans");
         chans.setEntries(chanNames);
         chans.setEntryValues(chanIds);
+        chans.setEntryStatuses(global.profileVar("mychans"));
         chans.setOnPreferenceChangeListener(save);
         
  

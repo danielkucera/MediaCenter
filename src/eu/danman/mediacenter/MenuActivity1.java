@@ -114,6 +114,7 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
+            	global.get("do=logout");
                 startActivity(new Intent(getBaseContext(), LoginActivity.class));
                 finish();
             }

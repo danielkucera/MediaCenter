@@ -38,10 +38,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.app.Activity;
 import android.app.Application;
 
 public class MediaCenter extends Application {
@@ -202,7 +204,15 @@ public class MediaCenter extends Application {
 			e.printStackTrace();
 		}
 		// return body
-		Log.d("body",body);
+		//Log.d("body",body);
+		
+		if (body.contains("UNAUTHORIZED")){
+
+			Intent intent = new Intent (getApplicationContext(), LoginActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+
+		}
 		
 		return body;
 	}
@@ -318,7 +328,7 @@ public class MediaCenter extends Application {
         } 
         
         return body;
-} 
+	} 
 	
 	
 	

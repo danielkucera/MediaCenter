@@ -142,7 +142,7 @@ public class LoginActivity extends Activity implements SurfaceHolder.Callback {
 
 
             
-        }
+          }
         
         //vypln polia
         uname.setText(getPreference("username"));
@@ -198,6 +198,12 @@ public class LoginActivity extends Activity implements SurfaceHolder.Callback {
 			}
 		}
 	};
+	
+    public void onBackPressed() {
+    	
+    	
+        return;
+    }   
 	
 	
 	public void surfaceCreated(SurfaceHolder holder) {

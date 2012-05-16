@@ -9,6 +9,8 @@ import android.content.DialogInterface.OnClickListener;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.os.Bundle;
 
 /**
  * A {@link Preference} that displays a list of entries as
@@ -24,6 +26,8 @@ public class ListPreferenceMultiSelect extends ListPreference {
 	private static final String SEPARATOR = ",";
 	
     private boolean[] mClickedDialogEntryIndices;
+    
+    private String resultentries;
 
     public ListPreferenceMultiSelect(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,6 +59,12 @@ public class ListPreferenceMultiSelect extends ListPreference {
         builder.setMultiChoiceItems(entries, mClickedDialogEntryIndices, 
                 new DialogInterface.OnMultiChoiceClickListener() {
 					public void onClick(DialogInterface dialog, int which, boolean val) {
+						String entryValue = getEntryValues()[which] + ",";
+						if (val){
+							resultentries += entryValue;
+						} else {
+							resultentries = resultentries.replace(entryValue, "");
+						}
                     	mClickedDialogEntryIndices[which] = val;
 					}
         });
@@ -71,6 +81,7 @@ public class ListPreferenceMultiSelect extends ListPreference {
     	CharSequence[] entryValues = getEntryValues();
     	
     	String[] vals = parseStoredValue(getValue());
+//    	String[] vals = parseStoredValue((CharSequence)((MediaCenter)global).profileVar("mychans"));
     	if ( vals != null ) {
         	for ( int j=0; j<vals.length; j++ ) {
         		String val = vals[j].trim();
@@ -84,8 +95,30 @@ public class ListPreferenceMultiSelect extends ListPreference {
         	}
     	}
     }
-
-	@Override
+    
+    public void setEntryStatuses(String get) {
+        	CharSequence[] entryValues = getEntryValues();
+        	
+        	resultentries = get;
+        	
+//        	String[] vals = parseStoredValue(getValue());
+        	String[] vals = parseStoredValue(get);
+        	if ( vals != null ) {
+            	for ( int j=0; j<vals.length; j++ ) {
+            		String val = vals[j].trim();
+                	for ( int i=0; i<entryValues.length; i++ ) {
+                		CharSequence entry = entryValues[i];
+                		Log.d((String) entry,val);
+                		if ( entry.equals(val) ) {
+                			mClickedDialogEntryIndices[i] = true;
+                			break;
+                		}
+                	}
+            	}
+        	}
+        }
+        
+/*	@Override
     protected void onDialogClosed(boolean positiveResult) {
 //        super.onDialogClosed(positiveResult);
         
@@ -105,5 +138,29 @@ public class ListPreferenceMultiSelect extends ListPreference {
             	setValue(val);
             }
         }
-    }
+    } */
+    
+	@Override
+    protected void onDialogClosed(boolean positiveResult) {
+//        super.onDialogClosed(positiveResult);
+        
+    	CharSequence[] entryValues = getEntryValues();
+        if (positiveResult && entryValues != null) {
+        	StringBuffer value = new StringBuffer();
+        	value.append(resultentries);
+//        	for ( int i=0; i<entryValues.length; i++ ) {
+//        		if ( mClickedDialogEntryIndices[i] ) {
+//        			value.append(entryValues[i]).append(SEPARATOR);
+//        		}
+//        	}
+        	
+            if (callChangeListener(value)) {
+            	String val = value.toString();
+            	if ( val.length() > 0 )
+            		val = val.substring(0, val.length()-SEPARATOR.length());
+            	setValue(val);
+            }
+        }
+    } 
+    
 }
