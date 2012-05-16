@@ -242,15 +242,6 @@ if ($do=="setProfile"){
 
 }
 
-if ($do=="getExtern"){
-	
-	$url=$_REQUEST['url'];
-	readfile($url);
-
-	die();
-
-}
-
 if ($do=="getChannels"){
 
 	$sql = "SELECT id,name FROM channels ORDER BY name";
