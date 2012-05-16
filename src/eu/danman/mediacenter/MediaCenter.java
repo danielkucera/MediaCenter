@@ -41,6 +41,7 @@ import org.xml.sax.InputSource;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.app.Activity;
@@ -217,10 +218,8 @@ public class MediaCenter extends Application {
 		return body;
 	}
 	
-	public boolean fileDownload(String request, String filename){
+	public boolean fileDownload(String url, String filename){
 
-		String url = baseurl + request;
-		
 		String to = this.getFilesDir().toString() + "/" + filename;
 		
 		Log.d("downloading",url +" => "+ to);
@@ -263,22 +262,18 @@ public class MediaCenter extends Application {
         return true; 
 	}
 	
-	public Bitmap getLogoBitmap(String nurl){
-		
-		String url = "do=getExtern&url="+nurl;
+	public Bitmap getLogoBitmap(String url){
 		
 	    String icon_name = url.substring(url.lastIndexOf('/')+1);   
-	    
 	    
 	    try {
 			openFileInput(icon_name);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
+		    Log.d("icon download",url+":"+icon_name);
 		    fileDownload(url, icon_name);
 		}
 	    
-	    Log.d("icon download",url+":"+icon_name);
-	    	    
         Bitmap logoBitmap;
         
 		try {
@@ -288,7 +283,9 @@ public class MediaCenter extends Application {
 
        	} catch (IOException e) {
       	  e.printStackTrace();
-      	  logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);  //tuto dat neajku ikonku co bude v apk-cku
+      	  //logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);  //tuto dat neajku ikonku co bude v apk-cku
+      	  Config conf = Bitmap.Config.ARGB_8888;
+      	  logoBitmap = Bitmap.createBitmap(1, 1, conf);
       	}
 		
 		return logoBitmap;
