@@ -42,7 +42,7 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
     Button btnTV;
     Button btnVOD;
     Button btnEPG;
-    Button button2;
+    Button btnLogout;
     Button btnSettings;
     Button btnListTV;
     ImageButton btnRefresh;
@@ -60,17 +60,17 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
         
 	    outputX = (TextView) findViewById(R.id.textView1);	 
 	    outputX2 = (TextView) findViewById(R.id.textView4);
+	    
 	    btnRefresh = (ImageButton) findViewById(R.id.btnRefresh);
-	    btnTV = (Button) findViewById(R.id.button1);
+	    btnTV = (Button) findViewById(R.id.btnTV);
 	    btnVOD = (Button) findViewById(R.id.btnVOD);
-	    button2 = (Button) findViewById(R.id.button2);
+	    btnLogout = (Button) findViewById(R.id.btnLogout);
 	    btnEPG = (Button) findViewById(R.id.btnEPG);
 	    btnSettings = (Button) findViewById(R.id.btnSettings);
 	    btnListTV = (Button) findViewById(R.id.btnListTV);
 	          
         initBall();
 	    
-
         btnTV.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -111,7 +111,7 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
         });
         
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
             	global.get("do=logout");
@@ -227,7 +227,7 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
 	                
 	                checkDist(btnTV);
 	                checkDist(btnEPG);
-	                checkDist(button2);
+	                checkDist(btnLogout);
 	                checkDist(btnSettings);
 	                checkDist(btnVOD);
 	                checkDist(btnListTV);
