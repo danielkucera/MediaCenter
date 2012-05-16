@@ -158,10 +158,14 @@ public class MediaCenter extends Application {
 	}
 	
 	public String profileVar(String var){
-		NodeList cont = userProfile.getElementsByTagName(var);
-		if (cont.getLength() != 0){
-			return cont.item(0).getTextContent();
-		} else {
+		try {
+			NodeList cont = userProfile.getElementsByTagName(var);
+			if (cont.getLength() != 0){
+				return cont.item(0).getTextContent();
+			} else {
+			return "";
+		}
+		} catch (NullPointerException e){
 			return "";
 		}
 	}

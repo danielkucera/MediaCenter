@@ -157,7 +157,7 @@ public class MenuActivity1 extends Activity implements SensorEventListener{
 	    
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	    //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_GAME);
-
+        global.loadProfile();
         
         gravity = (global.profileVar("invert_gravity").contains("true"))?-1:1;
         

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 
 public class IntroActivity extends Activity {
 	
@@ -22,11 +23,24 @@ public class IntroActivity extends Activity {
         
         timer = new Timer();
         
+        final MediaCenter global = ((MediaCenter)getApplicationContext());
+
+        
         task = new TimerTask() {
 			
 			@Override
 			public void run() {
-		        startActivity(new Intent(getBaseContext(), LoginActivity.class));
+				
+		        global.loadProfile();
+				
+				String menu = global.profileVar("menu");
+				
+				Log.d("menu from xml",menu);
+				
+				if (menu.equals("menu1")){
+		    		startActivity(new Intent (getApplicationContext(), MenuActivity1.class));	
+				}
+
 		        timer.cancel();
 		        finish();
 			}
