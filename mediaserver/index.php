@@ -271,9 +271,9 @@ if ($do=="getChannels"){
 
 if ($do=="logout"){
 
-	session_unset();
+	session_destroy();
 
-	die();
+	die("UNAUTHORIZED");
 
 }
 
