@@ -1,56 +1,29 @@
 package eu.danman.mediacenter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.Socket;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import eu.danman.mediacenter.MediaCenter.programmeType;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
-import android.text.Layout;
-import android.text.format.Time;
-import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.AnimationUtils;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.MediaController;
-import android.widget.MediaController.MediaPlayerControl;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
