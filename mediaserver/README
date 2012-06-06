@@ -1,0 +1,12 @@
+Name: mediaserver
+Description: Mediaserver used as backend for MediaCenter application, longer description in my diploma thesis.
+Author: Daniel Kucera
+
+--- INSTALLATION --- 
+
+1. copy this folder somewhere to webserver
+2. import mediaserver.sql to database
+3. create database user and allow him all operations on mediaserver table
+4. copy config.php.sample to config.php and edit according to your database settings
+5. edit url in MediaCenter application in MediaCenter.class to match your server
+6. recompile MediaCenter application
